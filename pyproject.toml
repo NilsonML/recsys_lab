@@ -1,0 +1,73 @@
+[project]
+name = "recsys-lab"
+version = "0.1.0"
+description = "Recommender systems lab: baselines, evaluation and experiment tracking on MovieLens"
+authors = [
+    {name = "aleksejhanykov85", email = "105378393+aleksejhanykov85@users.noreply.github.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "hydra-core (>=1.3.7,<2.0.0)",
+    "mlflow (>=3.17.1,<4.0.0)",
+    "numpy (>=2.5.4,<3.0.0)",
+    "pandas (>=3.0.6,<4.0.0)",
+    "truststore (>=0.10.5,<0.11.0)",
+    "polars (>=2.0.0,<3.0.0)",
+    "scipy (>=1.18.1,<2.0.0)",
+]
+
+[tool.poetry]
+packages = [{ include = "recsys", from = "src" }]
+
+[tool.poetry.scripts]
+recsys-train = "recsys.pipelines.train_eval:main"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[dependency-groups]
+dev = [
+    "mypy (>=2.4.0,<3.0.0)",
+    "pytest (>=9.1.1,<10.0.0)",
+    "ruff (>=0.17.1,<0.18.0)",
+    "pre-commit (>=4.7.0,<5.0.0)",
+    "pandas-stubs (>=3.0.5.260914,<4.0.0.0)",
+    "scipy-stubs (>=1.18.1.1,<2.0.0.0)"
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests"]
+extend-exclude = ["notebooks"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "N", "RUF", "NPY", "PD", "PT"]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.mypy]
+python_version = "3.12"
+files = ["src", "tests"]
+mypy_path = "src"
+strict = true
+warn_unreachable = true
+explicit_package_bases = true
+
+[tool.pyright]
+# Pin Pylance/pyright to the in-project Poetry venv regardless of the interpreter picked in the IDE.
+venvPath = "."
+venv = ".venv"
+extraPaths = ["src"]
+
+[[tool.mypy.overrides]]
+module = ["mlflow.*", "hydra.*", "omegaconf.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = ["-ra", "--strict-markers", "--import-mode=importlib"]
+markers = ["slow: long-running tests"]

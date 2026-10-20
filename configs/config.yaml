@@ -1,0 +1,14 @@
+defaults:
+  - data: movielens_1m
+  - split: leave_last_out
+  - model: popularity
+  - eval: default
+  - _self_
+
+seed: 42
+
+mlflow:
+  # Local SQLite backend; artifacts go to ./mlruns. Override via env MLFLOW_TRACKING_URI.
+  tracking_uri: ${oc.env:MLFLOW_TRACKING_URI,sqlite:///mlflow.db}
+  experiment_name: recsys-lab
+  run_name: ${model.name}-${split.name}

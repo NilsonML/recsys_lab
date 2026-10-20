@@ -1,0 +1,3 @@
+k: [10, 20, 50]
+metrics: [recall, ndcg, map, coverage]
+filter_seen: true

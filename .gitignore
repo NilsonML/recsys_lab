@@ -1,0 +1,22 @@
+# Datasets and generated data: keep only the folder skeleton (.gitkeep).
+data/**
+!data/**/
+!data/**/.gitkeep
+venv/
+__pycache__/
+.pytest_cache/
+outputs/
+multirun/
+.venv/
+.mypy_cache/
+.ruff_cache/
+mlruns/
+mlartifacts/
+mlflow.db
+.ipynb_checkpoints/
+
+# Personal study notes (not part of the project)
+notes/
+
+# Personal editor settings
+.vscode/

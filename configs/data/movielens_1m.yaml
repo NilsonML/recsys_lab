@@ -1,0 +1,7 @@
+name: movielens_1m
+url: https://files.grouplens.org/datasets/movielens/ml-1m.zip
+raw_dir: data/raw
+processed_dir: data/processed
+min_rating: 4.0        # explicit -> implicit: keep ratings >= threshold as positives
+min_user_interactions: 5
+min_item_interactions: 5
